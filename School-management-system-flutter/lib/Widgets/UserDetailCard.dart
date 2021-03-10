@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class UserDetailCard extends StatefulWidget {
   @override
   _UserDetailCardState createState() => _UserDetailCardState();
+  UserDetailCard({Key key, this.totalCardCnt}) : super(key: key);
+  final int totalCardCnt;
 }
 
 class _UserDetailCardState extends State<UserDetailCard>
@@ -28,12 +30,14 @@ class _UserDetailCardState extends State<UserDetailCard>
         parent: animationController,
         curve: Interval(0.3, 0.5, curve: Curves.fastOutSlowIn)));
   }
- @override
+
+  @override
   void dispose() {
     // TODO: implement dispose
     animationController.dispose();
     super.dispose();
   }
+
   Widget build(BuildContext context) {
     animationController.forward();
     final double width = MediaQuery.of(context).size.width;
@@ -116,7 +120,7 @@ class _UserDetailCardState extends State<UserDetailCard>
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "Total Cards: 12",
+                                          "Total Cards: ${widget.totalCardCnt}",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,

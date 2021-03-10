@@ -59,7 +59,7 @@ class _ExamResultState extends State<ExamResult>
               appBar: CommonAppBar(
                 menuenabled: true,
                 notificationenabled: false,
-                title: "Exams",
+                title: "Add Card",
                 ontap: () {
                   _scaffoldKey.currentState.openDrawer();
                 },

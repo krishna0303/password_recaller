@@ -9,7 +9,6 @@ import 'package:school_management/Widgets/DashboardCards.dart';
 import 'package:school_management/Widgets/MainDrawer.dart';
 import 'package:school_management/Widgets/UserDetailCard.dart';
 
-import 'Attendance/Attendance.dart';
 import 'Leave_Apply/Leave_apply.dart';
 
 class Home extends StatefulWidget {
@@ -18,6 +17,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+  bool isFlagOn = false;
+  bool headerShouldHide = false;
+  List<dynamic> notesList = [];
+  TextEditingController searchController = TextEditingController();
+
+  bool isSearchEmpty = true;
+
   Animation animation, delayedAnimation, muchDelayedAnimation, LeftCurve;
   AnimationController animationController;
 
@@ -79,36 +85,88 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           ),
           body: ListView(
             children: [
-
               UserDetailCard(),
-              
               Padding(
-                padding: EdgeInsets.all(10),
-                child: Transform(
-                transform: Matrix4.translationValues(
-                    muchDelayedAnimation.value * width, 0, 0),
-                child: DropdownSearch<String>(
-                  validator: (v) => v == null ? "Please Select" : null,
-                  hint: "Please Select",
-                  mode: Mode.MENU,
-                  showSelectedItem: true,
-                  
-                  items: [
-                    "Quarterly",
-                    "half yearly",
-                    "First Revision",
-                    'Second Revision',
-                    'Third Revision',
-                    'Annual Exam'
-                  ],
-                  showClearButton: false,
-                  onChanged: (value) {},
+                padding: const EdgeInsets.all(8.0),
+                child: Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.all(8),
+                    padding: EdgeInsets.all(16),
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black38,
+                          offset: Offset(0, 2),
+                          blurRadius: 7,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          child: TextField(
+                            controller: searchController,
+                            maxLines: 1,
+                            onChanged: (value) {
+                              handleSearch(value);
+                            },
+                            autofocus: false,
+                            keyboardType: TextInputType.text,
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w500),
+                            textInputAction: TextInputAction.search,
+                            decoration: InputDecoration.collapsed(
+                              hintText: 'Search',
+                              hintStyle: TextStyle(
+                                  color: Colors.grey.shade300,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(
+                              isSearchEmpty ? Icons.search : Icons.cancel,
+                              color: Colors.grey.shade300),
+                          onPressed: cancelSearch,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-              ),
-              
-              
-                      
+
+              // Padding(
+              //   padding: EdgeInsets.all(10),
+              //   child: Transform(
+              //   transform: Matrix4.translationValues(
+              //       muchDelayedAnimation.value * width, 0, 0),
+              //   child: DropdownSearch<String>(
+              //     validator: (v) => v == null ? "Please Select" : null,
+              //     hint: "Please Select",
+              //     mode: Mode.MENU,
+              //     showSelectedItem: true,
+
+              //     items: [
+              //       "Quarterly",
+              //       "half yearly",
+              //       "First Revision",
+              //       'Second Revision',
+              //       'Third Revision',
+              //       'Annual Exam'
+              //     ],
+              //     showClearButton: false,
+              //     onChanged: (value) {},
+              //   ),
+              // ),
+              // ),
+
               // Padding(
               //   padding: const EdgeInsets.fromLTRB(30.0, 10, 30, 10),
               //   child: Container(
@@ -279,5 +337,25 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         );
       },
     );
+  }
+
+  void handleSearch(String value) {
+    if (value.isNotEmpty) {
+      setState(() {
+        isSearchEmpty = false;
+      });
+    } else {
+      setState(() {
+        isSearchEmpty = true;
+      });
+    }
+  }
+
+  void cancelSearch() {
+    FocusScope.of(context).requestFocus(new FocusNode());
+    setState(() {
+      searchController.clear();
+      isSearchEmpty = true;
+    });
   }
 }

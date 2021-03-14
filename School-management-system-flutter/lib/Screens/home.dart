@@ -17,7 +17,6 @@ import 'package:school_management/components/faderoute.dart';
 import 'package:school_management/data/models.dart';
 import 'package:school_management/data/theme.dart';
 import 'package:school_management/services/database.dart';
-
 import 'edit.dart';
 
 class Home extends StatefulWidget {
@@ -33,6 +32,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   bool headerShouldHide = false;
   List<dynamic> notesList = [];
   TextEditingController searchController = TextEditingController();
+  int totalCardCnt;
 
   bool isSearchEmpty = true;
 
@@ -42,6 +42,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     // TODO: implement initState
+    getCardCnt();
     super.initState();
     Firebase.initializeApp();
     SystemChrome.setEnabledSystemUIOverlays([]);
@@ -61,6 +62,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     LeftCurve = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
         parent: animationController,
         curve: Interval(0.5, 1.0, curve: Curves.easeInOut)));
+  }
+
+  getCardCnt() async {
+    int fetchedCardCnt = await NotesDatabaseService.db.getNotesCntFromDB();
+    setState(() {
+      print("Hola: $fetchedCardCnt");
+      totalCardCnt = fetchedCardCnt;
+    });
   }
 
   setNotesFromDB() async {
@@ -140,7 +149,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   void refetchNotesFromDB() async {
     await setNotesFromDB();
-    print("Refetched notes");
+    print("Refetched notes $totalCardCnt");
   }
 
   openNoteToRead(NotesModel noteData) async {
@@ -234,7 +243,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           body: ListView(
             children: [
               UserDetailCard(
-                totalCardCnt: 12,
+                totalCardCnt: totalCardCnt,
               ),
               // Padding(
               //   padding: const EdgeInsets.all(8.0),

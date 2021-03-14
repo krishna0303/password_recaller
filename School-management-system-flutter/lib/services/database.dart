@@ -44,6 +44,15 @@ class NotesDatabaseService {
     return notesList;
   }
 
+  Future<int> getNotesCntFromDB() async {
+    final db = await database;
+
+    final result = await db.rawQuery('SELECT COUNT(*) FROM Notes');
+    final count = Sqflite.firstIntValue(result);
+
+    return count;
+  }
+
   updateNoteInDB(NotesModel updatedNote) async {
     final db = await database;
     await db.update('Notes', updatedNote.toMap(),

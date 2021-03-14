@@ -47,9 +47,21 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void handleBack() {
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: handleBack,
+        ),
+        backgroundColor: Colors.blueGrey[900],
+        title: Text('All Cards'),
+      ),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(new FocusNode());
@@ -59,32 +71,33 @@ class _MyHomePageState extends State<MyHomePage> {
           child: ListView(
             physics: BouncingScrollPhysics(),
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) => SettingsPage(
-                                  changeTheme: widget.changeTheme)));
-                    },
-                    child: AnimatedContainer(
-                      duration: Duration(milliseconds: 200),
-                      padding: EdgeInsets.all(16),
-                      alignment: Alignment.centerRight,
-                      child: Icon(
-                        OMIcons.settings,
-                        color: Theme.of(context).brightness == Brightness.light
-                            ? Colors.grey.shade600
-                            : Colors.grey.shade300,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: <Widget>[
+              //     GestureDetector(
+              //       behavior: HitTestBehavior.opaque,
+              //       onTap: () {
+              //         Navigator.push(
+              //             context,
+              //             CupertinoPageRoute(
+              //                 builder: (context) => SettingsPage(
+              //                     changeTheme: widget.changeTheme)));
+              //       },
+              //       child: AnimatedContainer(
+              //         duration: Duration(milliseconds: 200),
+              //         padding: EdgeInsets.all(16),
+              //         alignment: Alignment.centerRight,
+              //         child: Icon(
+              //           OMIcons.settings,
+              //           color: Theme.of(context).brightness == Brightness.light
+              //               ? Colors.grey.shade600
+              //               : Colors.grey.shade300,
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+
               buildHeaderWidget(context),
               buildButtonRow(),
               buildImportantIndicatorText(),

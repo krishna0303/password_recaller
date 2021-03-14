@@ -6,6 +6,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:school_management/Screens/Leave_Apply/Leave_apply.dart';
 import 'package:school_management/Screens/LoginPage.dart';
 import 'package:school_management/Screens/SpleashScreen.dart';
+import 'package:school_management/Screens/pin_authenticate.dart';
+
+import 'Screens/authentication.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SpleashScreen(),
+      home: MyWidget(),
     );
   }
 }

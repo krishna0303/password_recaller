@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class MyHomePageBio extends StatefulWidget {
+  MyHomePageBio({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageBioState createState() => _MyHomePageBioState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageBioState extends State<MyHomePageBio> {
   // 2. created object of localauthentication class
   final LocalAuthentication _localAuthentication = LocalAuthentication();
   // 3. variable for track whether your device support local authentication means

@@ -46,6 +46,7 @@ dependencies:
   url_launcher: ^5.0.3
   intl: ^0.16.0
   local_auth: 0.6.3+3
+  pin_code_fields: ^5.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

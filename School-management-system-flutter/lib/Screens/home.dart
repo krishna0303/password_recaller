@@ -434,7 +434,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                             },
                             child: DashboardCard(
                               name: "About Us",
-                              imgpath: "activity.png",
+                              imgpath: "leave_apply.png",
                             ),
                           ),
                         ),
@@ -453,7 +453,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                             },
                             child: DashboardCard(
                               name: "Share",
-                              imgpath: "leave_apply.png",
+                              imgpath: "activity.png",
                             ),
                           ),
                         ),

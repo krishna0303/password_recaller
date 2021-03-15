@@ -1,9 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:school_management/Screens/Attendance/Attendance.dart';
 import 'package:school_management/Screens/Exam/Exam_Rseult.dart';
 import 'package:school_management/Screens/Leave_Apply/Leave_apply.dart';
+import 'package:school_management/Screens/about.dart';
+import 'package:school_management/Screens/cardList.dart';
 import 'package:school_management/Screens/home.dart';
+import 'package:school_management/Screens/share.dart';
 import 'package:school_management/Widgets/DrawerListTile.dart';
+import 'package:school_management/data/theme.dart';
 
 class MainDrawer extends StatefulWidget {
   @override
@@ -11,7 +16,29 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
+  String text = 'https://medium.com/@suryadevsingh24032000';
+  String subject = 'follow me';
+  ThemeData theme = appThemeLight;
+  bool isFlagOn = false;
+  bool headerShouldHide = false;
+  List<dynamic> notesList = [];
+  TextEditingController searchController = TextEditingController();
+  int totalCardCnt;
+
+  bool isSearchEmpty = true;
   @override
+  setTheme(Brightness brightness) {
+    if (brightness == Brightness.dark) {
+      setState(() {
+        theme = appThemeDark;
+      });
+    } else {
+      setState(() {
+        theme = appThemeLight;
+      });
+    }
+  }
+
   Widget build(BuildContext context) {
     return ListView(
       children: [
@@ -40,15 +67,26 @@ class _MainDrawerState extends State<MainDrawer> {
         // ),
         // DrawerListTile(
         //     imgpath: "classroom.png", name: "Class work", ontap: () {}),
-        DrawerListTile(imgpath: "profile.png", name: "Profile", ontap: () {}),
         DrawerListTile(
-          imgpath: "exam.png",
+            imgpath: "profile.png",
+            name: "Profile",
+            ontap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => Home(),
+                ),
+              );
+            }),
+        DrawerListTile(
+          imgpath: "library.png",
           name: "All Cards",
           ontap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => ExamResult(),
+              CupertinoPageRoute(
+                builder: (context) =>
+                    MyHomePage(title: 'Home', changeTheme: setTheme),
               ),
             );
           },
@@ -66,14 +104,24 @@ class _MainDrawerState extends State<MainDrawer> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => LeaveApply(),
+                builder: (BuildContext context) => AboutUs(),
               ),
             );
           },
         ),
-        DrawerListTile(imgpath: "activity.png", name: "Share", ontap: () {}),
-      //   DrawerListTile(
-      //       imgpath: "notification.png", name: "Notification", ontap: () {}),
+        DrawerListTile(
+            imgpath: "activity.png",
+            name: "Share",
+            ontap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => MyShare(),
+                ),
+              );
+            }),
+        //   DrawerListTile(
+        //       imgpath: "notification.png", name: "Notification", ontap: () {}),
       ],
     );
   }

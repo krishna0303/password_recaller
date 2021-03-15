@@ -72,7 +72,8 @@ class _UserDetailCardState extends State<UserDetailCard>
                             child: Center(
                               child: CircleAvatar(
                                 radius: 28,
-                                backgroundImage: AssetImage("assets/home.png"),
+                                backgroundImage:
+                                    AssetImage("assets/profile.png"),
                               ),
                             ),
                           ),
@@ -88,24 +89,23 @@ class _UserDetailCardState extends State<UserDetailCard>
                                     padding: const EdgeInsets.only(top: 8.0),
                                     child: Container(
                                       padding: EdgeInsets.all(3),
-                                      decoration: BoxDecoration(
-                                        color: Colors.orange[50],
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Text(
-                                        "17BCM011",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13,
-                                          color: Colors.deepOrange,
-                                        ),
-                                      ),
+                                      // decoration: BoxDecoration(
+                                      //   color: Colors.orange[50],
+                                      // borderRadius: BorderRadius.circular(10),
                                     ),
+                                    // child: Text(
+                                    //   "17BCM011",
+                                    //   style: TextStyle(
+                                    //     fontWeight: FontWeight.bold,
+                                    //     fontSize: 13,
+                                    //     color: Colors.deepOrange,
+                                    //   ),
+                                    // ),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 10.0),
                                     child: Text(
-                                      "Deepakkumar",
+                                      "Welcome",
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 21,

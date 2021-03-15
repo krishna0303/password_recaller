@@ -6,6 +6,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:school_management/Screens/Leave_Apply/Leave_apply.dart';
 import 'package:school_management/Screens/LoginPage.dart';
 import 'package:school_management/Screens/SpleashScreen.dart';
+import 'package:school_management/Screens/enter_pin.dart';
+import 'package:school_management/Screens/global.dart';
+import 'package:school_management/Screens/pin.dart';
 import 'package:school_management/Screens/pin_authenticate.dart';
 
 import 'Screens/authentication.dart';
@@ -16,6 +19,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIOverlays([]);
@@ -24,11 +28,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'DD School',
+      title: 'Password_Recaller',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyWidget(),
+      home: sharedPrefences == true
+          ? MyAppPinEnter()
+          : MyAppPin(
+              requiredNumber: pinValue,
+            ),
     );
   }
 }

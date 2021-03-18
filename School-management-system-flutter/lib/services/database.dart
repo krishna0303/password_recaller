@@ -27,6 +27,8 @@ class NotesDatabaseService {
         onCreate: (Database db, int version) async {
       await db.execute(
           'CREATE TABLE Notes (_id INTEGER PRIMARY KEY, title TEXT, content TEXT, date TEXT, isImportant INTEGER);');
+      await db.execute(
+          'CREATE TABLE UserDetail (_id INTEGER PRIMARY KEY, name TEXT, pin TEXT);');
       print('New table created at $path');
     });
   }
@@ -76,5 +78,33 @@ class NotesDatabaseService {
     newNote.id = id;
     print('Note added: ${newNote.title} ${newNote.content}');
     return newNote;
+  }
+
+//User Detail
+
+//Creating user details to db
+  Future<UserModel> addUserDetailInDB(UserModel newUser) async {
+    final db = await database;
+    int id = await db.transaction((transaction) {
+      transaction.rawInsert(
+          'INSERT into UserDetail(name, pin) VALUES ("${newUser.name}", "${newUser.pin}");');
+    });
+    newUser.id = id;
+    print('User Added: ${newUser.name} ${newUser.pin}');
+    return newUser;
+  }
+
+//For getting user details from db
+  Future<UserModel> getUserDetailFromDB() async {
+    final db = await database;
+    List<UserModel> userList = [];
+    List<Map> maps =
+        await db.query('UserDetail', columns: ['_id', 'name', 'pin']);
+    if (maps.length > 0) {
+      maps.forEach((map) {
+        userList.add(UserModel.fromMap(map));
+      });
+    }
+    return userList[0];
   }
 }

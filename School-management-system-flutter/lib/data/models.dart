@@ -35,3 +35,25 @@ class NotesModel {
     this.date = DateTime.now().add(Duration(hours: Random().nextInt(100)));
   }
 }
+
+class UserModel {
+  int id;
+  String name;
+  String pin;
+
+  UserModel({this.id, this.name, this.pin});
+
+  UserModel.fromMap(Map<String, dynamic> map) {
+    this.id = map['_id'];
+    this.name = map['name'];
+    this.pin = map['pin'];
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      '_id': this.id,
+      'name': this.name,
+      'pin': this.pin,
+    };
+  }
+}

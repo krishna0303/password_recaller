@@ -453,7 +453,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                             },
                             child: DashboardCard(
                               name: "Share",
-                              imgpath: "activity.png",
+                              imgpath: "ShareButton.png",
                             ),
                           ),
                         ),

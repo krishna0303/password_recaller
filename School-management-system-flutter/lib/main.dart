@@ -13,6 +13,18 @@ import 'package:school_management/Screens/pin_authenticate.dart';
 
 import 'Screens/authentication.dart';
 
+// void main() {
+//   runApp(new MaterialApp(
+//     home: new MyAppPinEnter(),
+//     routes: <String, WidgetBuilder>{
+//       '/MyAppPinEnter': (BuildContext context) => new MyAppPinEnter(),
+//       '/MyAppPin': (BuildContext context) => new MyAppPin(
+//             requiredNumber: pinValue,
+//           )
+//     },
+//   ));
+// }
+
 void main() {
   runApp(MyApp());
 }

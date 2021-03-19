@@ -1,40 +1,31 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:school_management/Screens/Leave_Apply/Leave_apply.dart';
-import 'package:school_management/Screens/LoginPage.dart';
-import 'package:school_management/Screens/SpleashScreen.dart';
 import 'package:school_management/Screens/enter_pin.dart';
 import 'package:school_management/Screens/global.dart';
 import 'package:school_management/Screens/pin.dart';
-import 'package:school_management/Screens/pin_authenticate.dart';
-
-import 'Screens/authentication.dart';
-
-// void main() {
-//   runApp(new MaterialApp(
-//     home: new MyAppPinEnter(),
-//     routes: <String, WidgetBuilder>{
-//       '/MyAppPinEnter': (BuildContext context) => new MyAppPinEnter(),
-//       '/MyAppPin': (BuildContext context) => new MyAppPin(
-//             requiredNumber: pinValue,
-//           )
-//     },
-//   ));
-// }
+import 'package:school_management/services/database.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MyApp(),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
+class _MyAppState extends State<MyApp> {
+  var user;
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    NotesDatabaseService.db.getUserDetailFromDB().then((user) {
+      setState(() {
+        print(user.name);
+        this.user = user;
+      });
+    });
+    super.initState();
   }
 
   @override
@@ -44,11 +35,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: sharedPrefences == true
-          ? MyAppPinEnter()
-          : MyAppPin(
-              requiredNumber: pinValue,
-            ),
+      home: user != null
+          ? MyAppPin(
+              requiredNumber: user.pin,
+            )
+          : MyAppPinEnter(),
     );
   }
 }

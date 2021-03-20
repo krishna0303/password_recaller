@@ -22,7 +22,7 @@ class _AboutUsState extends State<AboutUs> {
         body: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Text(
-            "As college students, we spent years tutoring and leading successful study groups. But we noticed a ton of students struggling with the same thing every semester: study prep. We decided to join our university's business launch competition and really explore the issue. After months of experiments and countless student interviews, it was clear that effective note taking and study prep were two of the greatest obstacles to success for students. We won the competition and immediately started building NimbleNotes to remove those obstacles. Our goal is to improve the learning experience of every student and help them succeed in their education.",
+            "The main motive of our is that During the covid time We have to manage all our activities online whether it is studying or work related. For that we end up creating accounts on various online platforms. And we do need to track the authentication details of all such platforms, Which might be a difficult activity for some fellows including us. So inorder to ease this difficulty we have made this app, in which you can track all info SECURELY in the form cards.Developers: Surendra and Krishna",
             style: TextStyle(fontSize: 25),
           ),
         ),
@@ -34,3 +34,17 @@ class _AboutUsState extends State<AboutUs> {
     Navigator.pop(context);
   }
 }
+
+
+
+/*
+The main motive of our is that During the covid time We have to manage all our 
+activities online whether it is studying or work related. 
+For that we end up creating accounts on various online platforms. 
+And we do need to track the authentication details of all such platforms,  
+Which might be a difficult activity for some fellows including us.
+So inorder to ease this difficulty
+we have made this app, in which you can track all info SECURELY in the form cards.
+
+Developers: Surendra and Krishna
+*/

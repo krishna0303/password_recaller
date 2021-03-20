@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:school_management/Screens/home.dart';
+import 'package:school_management/Screens/authentication.dart';
+// import 'package:school_management/Screens/home.dart';
 
 class MyAppPin extends StatelessWidget {
   final String requiredNumber;
@@ -43,7 +44,8 @@ class MyAppPin extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) => Home(),
+                          builder: (BuildContext context) =>
+                              MyHomePageBio(title: 'Password recaller'),
                         ),
                       );
                     } else {

@@ -7,8 +7,8 @@ class MyShare extends StatefulWidget {
 }
 
 class _MyShareState extends State<MyShare> {
-  String text = 'https://medium.com/@suryadevsingh24032000';
-  String subject = 'follow me';
+  String text = 'http://digitalreviewadda.com/';
+  String subject = 'follow us';
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

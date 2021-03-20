@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:school_management/Screens/home.dart';
 
 class MyHomePageBio extends StatefulWidget {
   MyHomePageBio({Key key, this.title}) : super(key: key);
@@ -65,6 +66,16 @@ class _MyHomePageBioState extends State<MyHomePageBio> {
     if (!mounted) return;
     setState(() {
       _authorizedOrNot = authenticated ? "Authorized" : "Not Authorized";
+      if (_authorizedOrNot == "Authorized") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => Home(),
+          ),
+        );
+      } else {
+        print("Hola: $_authorizedOrNot");
+      }
     });
   }
 

@@ -20,12 +20,14 @@ import 'package:school_management/services/database.dart';
 import 'edit.dart';
 
 class Home extends StatefulWidget {
+  String email;
+  Home({Key key, this.email});
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
-  String text = 'https://medium.com/@suryadevsingh24032000';
+  String text = 'https://digitalreviewadda.com';
   String subject = 'follow me';
   ThemeData theme = appThemeLight;
   bool isFlagOn = false;
@@ -74,7 +76,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   setNotesFromDB() async {
     print("Entered setNotes");
-    var fetchedNotes = await NotesDatabaseService.db.getNotesFromDB();
+    var fetchedNotes =
+        await NotesDatabaseService.db.getNotesFromDB(widget.email);
     setState(() {
       notesList = fetchedNotes;
     });
@@ -104,8 +107,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     Navigator.push(
         context,
         CupertinoPageRoute(
-            builder: (context) =>
-                EditNotePage(triggerRefetch: refetchNotesFromDB)));
+            builder: (context) => EditNotePage(
+                  triggerRefetch: refetchNotesFromDB,
+                  email: widget.email,
+                )));
   }
 
   void gotoAboutPage() {
@@ -130,7 +135,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     Navigator.push(
       context,
       CupertinoPageRoute(
-        builder: (context) => MyHomePage(title: 'Home', changeTheme: setTheme),
+        builder: (context) =>
+            AllCards(title: 'Home', email: widget.email, changeTheme: setTheme),
       ),
     );
   }

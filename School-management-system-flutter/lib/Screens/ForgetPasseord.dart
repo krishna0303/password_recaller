@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fzregex/utils/fzregex.dart';
 import 'package:fzregex/utils/pattern.dart';
@@ -39,6 +40,7 @@ class _ForgetPasswordState extends State<ForgetPassword>
   bool _autovalidate = false;
   String _email;
   String _rollno;
+  final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
@@ -111,30 +113,6 @@ class _ForgetPasswordState extends State<ForgetPassword>
                             child: Column(
                               children: [
                                 TextFormField(
-                                  validator: (val) {
-                                    if (val.isEmpty) {
-                                      return "You Must Enter Roll Number";
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  onSaved: (val) {
-                                    _rollno = val;
-                                  },
-                                  decoration: InputDecoration(
-                                      labelText: 'Roll Number',
-                                      contentPadding: EdgeInsets.all(5),
-                                      labelStyle: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                          color: Colors.grey),
-                                      focusedBorder: UnderlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Colors.green))),
-                                ),
-                                SizedBox(height: 20.0),
-                                TextFormField(
                                   validator: (value) {
                                     if ((Fzregex.hasMatch(
                                             value, FzPattern.email) ==
@@ -144,8 +122,10 @@ class _ForgetPasswordState extends State<ForgetPassword>
                                       return null;
                                     }
                                   },
-                                  onSaved: (value) {
-                                    _email = value;
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _email = value.trim();
+                                    });
                                   },
                                   keyboardType: TextInputType.emailAddress,
                                   decoration: InputDecoration(
@@ -192,7 +172,10 @@ class _ForgetPasswordState extends State<ForgetPassword>
                             }
                           },
                           child: MaterialButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              auth.sendPasswordResetEmail(email: _email);
+                              Navigator.of(context).pop();
+                            },
                             elevation: 0.0,
                             minWidth: MediaQuery.of(context).size.width,
                             color: Colors.green,

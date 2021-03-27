@@ -218,7 +218,7 @@ class _RequestLoginState extends State<RequestLogin>
                                   },
                                   onChanged: (value) {
                                     setState(() {
-                                      email = value.trim();
+                                      email = value;
                                     });
                                   },
                                   keyboardType: TextInputType.emailAddress,
@@ -262,50 +262,6 @@ class _RequestLoginState extends State<RequestLogin>
                                 //           borderSide:
                                 //               BorderSide(color: Colors.green))),
                                 // ),
-                                TextFormField(
-                                  obscuringCharacter: '*',
-                                  validator: (val) {
-                                    if (val.isEmpty) {
-                                      return "Enter Vaild password";
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  onChanged: (val) {
-                                    setState(() {
-                                      _pass = val.trim();
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                      suffix: passshow == false
-                                          ? IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  passshow = true;
-                                                });
-                                              },
-                                              icon: Icon(Icons.lock_open),
-                                            )
-                                          : IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  passshow = false;
-                                                });
-                                              },
-                                              icon: Icon(Icons.lock),
-                                            ),
-                                      labelText: 'PASSWORD',
-                                      contentPadding: EdgeInsets.all(5),
-                                      labelStyle: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                          color: Colors.grey),
-                                      focusedBorder: UnderlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Colors.green))),
-                                  obscureText: passshow == false ? true : false,
-                                ),
                               ],
                             )),
                       ],
@@ -325,12 +281,9 @@ class _RequestLoginState extends State<RequestLogin>
                     child: Column(
                       children: <Widget>[
                         Bouncing(
-                          onPress: () async {
-                            if (_formKey.currentState.validate()) {
-                              print("validated");
-                            } else {
-                              print("not validated");
-                            }
+                          onPress: () {
+                            auth.sendPasswordResetEmail(email: email);
+                            Navigator.of(context).pop();
                           },
                           child: MaterialButton(
                             onPressed: () {
@@ -345,14 +298,6 @@ class _RequestLoginState extends State<RequestLogin>
                               //     });
                               //   }
                               // }
-                              auth
-                                  .createUserWithEmailAndPassword(
-                                      email: email, password: _pass)
-                                  .then((_) {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) => VerifyScreen()));
-                              });
                             },
                             elevation: 0.0,
                             minWidth: MediaQuery.of(context).size.width,
@@ -370,10 +315,6 @@ class _RequestLoginState extends State<RequestLogin>
               ),
               SizedBox(
                 height: 10.0,
-              ),
-              Text(
-                error,
-                style: TextStyle(color: Colors.red, fontSize: 14.0),
               ),
             ],
           ),

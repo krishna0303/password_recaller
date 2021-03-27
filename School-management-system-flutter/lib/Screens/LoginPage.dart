@@ -8,6 +8,8 @@ import 'package:school_management/Screens/home.dart';
 import 'package:school_management/Widgets/BouncingButton.dart';
 import 'package:school_management/services/UserModel.dart';
 
+import 'package:school_management/services/auth.dart';
+
 import 'ForgetPasseord.dart';
 import 'RequestLogin.dart';
 
@@ -56,18 +58,24 @@ class _MyHomePageState extends State<MyHomePage>
     super.dispose();
   }
 
-  UserModel _userfromfirebase(FirebaseUser user) {
+  UserModel _userfromfirebase(User user) {
     return user != null ? UserModel(uid: user.uid) : null;
     print(user);
   }
 
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
+  String error = '';
+  bool loading = false;
   bool _autoValidate = false;
   bool passshow = false;
   String _pass;
   String _email;
   String user1;
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  String currentuser;
+
+  final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
@@ -150,8 +158,10 @@ class _MyHomePageState extends State<MyHomePage>
                                       return null;
                                     }
                                   },
-                                  onSaved: (value) {
-                                    _email = value;
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _email = value.trim();
+                                    });
                                   },
                                   keyboardType: TextInputType.emailAddress,
                                   decoration: InputDecoration(
@@ -174,13 +184,18 @@ class _MyHomePageState extends State<MyHomePage>
                                   obscuringCharacter: '*',
                                   validator: (val) {
                                     if (val.isEmpty) {
-                                      return "Enter Vaild password";
-                                    } else {
+                                      return "* Required";
+                                    } else if (val.length < 6) {
+                                      return "Password should be atleast 6 characters";
+                                    } else if (val.length > 15) {
+                                      return "Password should not be greater than 15 characters";
+                                    } else
                                       return null;
-                                    }
                                   },
-                                  onSaved: (val) {
-                                    _pass = val;
+                                  onChanged: (val) {
+                                    setState(() {
+                                      _pass = val.trim();
+                                    });
                                   },
                                   decoration: InputDecoration(
                                       suffix: passshow == false
@@ -264,43 +279,69 @@ class _MyHomePageState extends State<MyHomePage>
                     child: Column(
                       children: <Widget>[
                         Bouncing(
-                          onPress: () {
+                          onPress: () async {
                             if (_formkey.currentState.validate()) {
                               _formkey.currentState.save();
-                              /*try {
-                                final FirebaseUser user =
+                              try {
+                                final User user =
                                     (await _auth.signInWithEmailAndPassword(
-                                  email: _email,
-                                  password: _pass,
+                                  _email,
+                                  _pass,
                                 ))
                                         .user;
-                                dynamic userinfo = _auth.currentUser;
+                                dynamic userinfo = _auth.user;
+
+                                print("krishna:$userinfo");
                                 return _userfromfirebase(userinfo);
                               } catch (e) {
                                 if (e.code == 'user-not-found') {
-                                  print("user not found");
+                                  setState(() {
+                                    error = "user not found";
+                                  });
+                                  // print();
                                 } else if (e.code == 'wrong-password') {
-                                  print("wrong password");
+                                  setState(() {
+                                    error = "wrong password";
+                                  });
+                                  // print("wrong password");
                                 } else {
-                                  print("check internet connection!");
+                                  setState(() {
+                                    error = "check internet connection!";
+                                  });
+                                  // print();
                                 }
                               }
                             } else {
                               setState(() {
                                 _autoValidate = true;
                               });
-                            }*/
-
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) => Home(),
-                                  ));
                             }
-                            ;
                           },
                           child: MaterialButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              // if (_formKey.currentState.validate()) {
+                              //   setState(() => loading = true);
+                              //   dynamic result = await _auth
+                              //       .signInWithEmailAndPassword(_email, _pass);
+                              //   if (result == null) {
+                              //     setState(() {
+                              //       loading = false;
+                              //       error =
+                              //           'Could not sign in with those credentials';
+                              //     });
+                              //   }
+                              // }
+                              auth
+                                  .signInWithEmailAndPassword(
+                                      email: _email, password: _pass)
+                                  .then((_) {
+                                Navigator.of(context)
+                                    .pushReplacement(MaterialPageRoute(
+                                        builder: (context) => Home(
+                                              email: _email,
+                                            )));
+                              });
+                            },
                             elevation: 0.0,
                             minWidth: MediaQuery.of(context).size.width,
                             color: Colors.green,
@@ -349,7 +390,7 @@ class _MyHomePageState extends State<MyHomePage>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        "Coded By Surendra",
+                        "Coded By Krishna & Surendra",
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold),
                       ),
@@ -359,7 +400,11 @@ class _MyHomePageState extends State<MyHomePage>
               ),
               SizedBox(
                 height: 10.0,
-              )
+              ),
+              Text(
+                error,
+                style: TextStyle(color: Colors.red, fontSize: 14.0),
+              ),
             ],
           ),
         );

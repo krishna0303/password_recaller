@@ -14,7 +14,9 @@ import 'package:school_management/data/models.dart';
 class EditNotePage extends StatefulWidget {
   Function() triggerRefetch;
   NotesModel existingNote;
-  EditNotePage({Key key, Function() triggerRefetch, NotesModel existingNote})
+  String email;
+  EditNotePage(
+      {Key key, Function() triggerRefetch, NotesModel existingNote, this.email})
       : super(key: key) {
     this.triggerRefetch = triggerRefetch;
     this.existingNote = existingNote;
@@ -38,12 +40,17 @@ class _EditNotePageState extends State<EditNotePage> {
     super.initState();
     if (widget.existingNote == null) {
       currentNote = NotesModel(
-          content: '', title: '', date: DateTime.now(), isImportant: false);
+          userEmail: widget.email,
+          content: '',
+          title: '',
+          date: DateTime.now(),
+          isImportant: false);
       isNoteNew = true;
     } else {
       currentNote = widget.existingNote;
       isNoteNew = false;
     }
+
     titleController.text = currentNote.title;
     contentController.text = currentNote.content;
   }
@@ -72,6 +79,7 @@ class _EditNotePageState extends State<EditNotePage> {
                 },
                 onChanged: (value) {
                   markTitleAsDirty(value);
+                  print(widget.email);
                 },
                 textInputAction: TextInputAction.next,
                 style: TextStyle(

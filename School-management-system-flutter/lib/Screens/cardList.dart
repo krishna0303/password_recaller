@@ -11,9 +11,14 @@ import 'settings.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import '../components/cards.dart';
 
-class MyHomePage extends StatefulWidget {
+class AllCards extends StatefulWidget {
   Function(Brightness brightness) changeTheme;
-  MyHomePage({Key key, this.title, Function(Brightness brightness) changeTheme})
+  String email;
+  AllCards(
+      {Key key,
+      this.title,
+      this.email,
+      Function(Brightness brightness) changeTheme})
       : super(key: key) {
     this.changeTheme = changeTheme;
   }
@@ -21,10 +26,10 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _AllCardsState createState() => _AllCardsState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _AllCardsState extends State<AllCards> {
   bool isFlagOn = false;
   bool headerShouldHide = false;
   List<NotesModel> notesList = [];
@@ -41,7 +46,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   setNotesFromDB() async {
     print("Entered setNotes");
-    var fetchedNotes = await NotesDatabaseService.db.getNotesFromDB();
+    var fetchedNotes =
+        await NotesDatabaseService.db.getNotesFromDB(widget.email);
     setState(() {
       notesList = fetchedNotes;
     });

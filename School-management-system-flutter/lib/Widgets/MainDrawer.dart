@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:school_management/Screens/Attendance/Attendance.dart';
@@ -6,9 +7,12 @@ import 'package:school_management/Screens/Leave_Apply/Leave_apply.dart';
 import 'package:school_management/Screens/about.dart';
 import 'package:school_management/Screens/cardList.dart';
 import 'package:school_management/Screens/home.dart';
+import 'package:school_management/Screens/LoginPage.dart';
 import 'package:school_management/Screens/share.dart';
 import 'package:school_management/Widgets/DrawerListTile.dart';
 import 'package:school_management/data/theme.dart';
+import 'package:school_management/services/auth.dart';
+import 'package:share/share.dart';
 
 class MainDrawer extends StatefulWidget {
   @override
@@ -16,16 +20,18 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
-  String text = 'https://medium.com/@suryadevsingh24032000';
+  String text = 'https://digitalreviewadda.com';
   String subject = 'follow me';
   ThemeData theme = appThemeLight;
   bool isFlagOn = false;
   bool headerShouldHide = false;
+  final AuthService _auth = AuthService();
   List<dynamic> notesList = [];
   TextEditingController searchController = TextEditingController();
   int totalCardCnt;
 
   bool isSearchEmpty = true;
+  final auth = FirebaseAuth.instance;
   @override
   setTheme(Brightness brightness) {
     if (brightness == Brightness.dark) {
@@ -86,7 +92,7 @@ class _MainDrawerState extends State<MainDrawer> {
               context,
               CupertinoPageRoute(
                 builder: (context) =>
-                    MyHomePage(title: 'Home', changeTheme: setTheme),
+                    AllCards(title: 'Home', changeTheme: setTheme),
               ),
             );
           },
@@ -113,13 +119,22 @@ class _MainDrawerState extends State<MainDrawer> {
             imgpath: "activity.png",
             name: "Share",
             ontap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => MyShare(),
-                ),
+              final RenderBox box = context.findRenderObject();
+              Share.share(
+                text,
+                subject: subject,
+                sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
               );
             }),
+        FlatButton.icon(
+          icon: Icon(Icons.person),
+          label: Text('logout'),
+          onPressed: () {
+            auth.signOut();
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => MyHomePage()));
+          },
+        ),
         //   DrawerListTile(
         //       imgpath: "notification.png", name: "Notification", ontap: () {}),
       ],

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:school_management/Screens/LoginPage.dart';
 import 'package:school_management/Screens/enter_pin.dart';
 import 'package:school_management/Screens/global.dart';
-import 'package:school_management/Screens/pin.dart';
+import 'package:school_management/Screens/SpleashScreen.dart';
 import 'package:school_management/services/database.dart';
 
 void main() {
@@ -35,11 +36,12 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: user != null
-          ? MyAppPin(
-              requiredNumber: user.pin,
-            )
-          : MyAppPinEnter(),
+      home: SpleashScreen(),
+      // home: user != null
+      //     ? MyAppPin(
+      //         requiredNumber: user.pin,
+      //       )
+      //     : MyAppPinEnter(),
     );
   }
 }

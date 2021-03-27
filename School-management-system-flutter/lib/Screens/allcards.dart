@@ -1,0 +1,12 @@
+import 'dart:async';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:school_management/Screens/view.dart';
+import 'package:school_management/components/faderoute.dart';
+import 'package:school_management/data/models.dart';
+import 'package:school_management/services/database.dart';
+import 'edit.dart';
+import 'settings.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
+import '../components/cards.dart';

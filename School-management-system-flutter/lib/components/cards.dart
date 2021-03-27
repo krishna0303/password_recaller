@@ -67,6 +67,14 @@ class NoteCardComponent extends StatelessWidget {
                           TextStyle(fontSize: 14, color: Colors.grey.shade400),
                     ),
                   ),
+                  // Container(
+                  //   margin: EdgeInsets.only(top: 8),
+                  //   child: Text(
+                  //     '${noteData.userEmail}',
+                  //     style:
+                  //         TextStyle(fontSize: 14, color: Colors.grey.shade400),
+                  //   ),
+                  // ),
                   Container(
                     margin: EdgeInsets.only(top: 14),
                     alignment: Alignment.centerRight,

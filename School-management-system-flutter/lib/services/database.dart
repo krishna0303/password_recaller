@@ -26,18 +26,28 @@ class NotesDatabaseService {
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute(
-          'CREATE TABLE Notes (_id INTEGER PRIMARY KEY, title TEXT, content TEXT, date TEXT, isImportant INTEGER);');
+          'CREATE TABLE Notes (_id INTEGER PRIMARY KEY, userEmail TEXT , title TEXT, content TEXT, date TEXT, isImportant INTEGER);');
       await db.execute(
           'CREATE TABLE UserDetail (_id INTEGER PRIMARY KEY, name TEXT, pin TEXT);');
       print('New table created at $path');
     });
   }
 
-  Future<List<NotesModel>> getNotesFromDB() async {
+  Future<List<NotesModel>> getNotesFromDB(String email) async {
     final db = await database;
     List<NotesModel> notesList = [];
     List<Map> maps = await db.query('Notes',
-        columns: ['_id', 'title', 'content', 'date', 'isImportant']);
+        columns: [
+          '_id',
+          'userEmail',
+          'title',
+          'content',
+          'date',
+          'isImportant'
+        ],
+        where: 'userEmail=?',
+        whereArgs: [email]);
+    print("ULTA SIDHA:${maps.length}");
     if (maps.length > 0) {
       maps.forEach((map) {
         notesList.add(NotesModel.fromMap(map));
@@ -73,7 +83,7 @@ class NotesDatabaseService {
     if (newNote.title.trim().isEmpty) newNote.title = 'Untitled Note';
     int id = await db.transaction((transaction) {
       transaction.rawInsert(
-          'INSERT into Notes(title, content, date, isImportant) VALUES ("${newNote.title}", "${newNote.content}", "${newNote.date.toIso8601String()}", ${newNote.isImportant == true ? 1 : 0});');
+          'INSERT into Notes(userEmail, title, content, date, isImportant) VALUES ("${newNote.userEmail}","${newNote.title}", "${newNote.content}", "${newNote.date.toIso8601String()}", ${newNote.isImportant == true ? 1 : 0});');
     });
     newNote.id = id;
     print('Note added: ${newNote.title} ${newNote.content}');

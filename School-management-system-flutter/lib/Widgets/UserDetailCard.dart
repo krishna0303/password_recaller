@@ -120,22 +120,22 @@ class _UserDetailCardState extends State<UserDetailCard>
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "Total Cards: ${widget.totalCardCnt}",
+                                          "Your security is our priority",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,
                                           ),
                                         ),
-                                        SizedBox(
-                                          width: 50,
-                                        ),
-                                        Text(
-                                          "Section: B",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                        ),
+                                        // SizedBox(
+                                        //   width: 50,
+                                        // ),
+                                        // Text(
+                                        //   "Section: B",
+                                        //   style: TextStyle(
+                                        //     fontWeight: FontWeight.bold,
+                                        //     color: Colors.white,
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
                                   ),

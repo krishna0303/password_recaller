@@ -1,9 +1,12 @@
+import 'package:firebase_admob/firebase_admob.dart';
+import 'package:school_management/ad_manager.dart';
 import 'package:share/share.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:school_management/Screens/about.dart';
+import 'package:school_management/Screens/instructions.dart';
 import 'package:school_management/Screens/cardList.dart';
 import 'package:school_management/Screens/share.dart';
 import 'package:school_management/Screens/view.dart';
@@ -40,6 +43,34 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   Animation animation, delayedAnimation, muchDelayedAnimation, LeftCurve;
   AnimationController animationController;
+  BannerAd _bannerAd;
+  InterstitialAd _interstitialAd;
+
+  // TODO: Add _isInterstitialAdReady
+  bool _isInterstitialAdReady;
+
+  // TODO: Implement _loadInterstitialAd()
+  void _loadInterstitialAd() {
+    _interstitialAd.load();
+  }
+
+  // TODO: Implement _onInterstitialAdEvent()
+  void _onInterstitialAdEvent(MobileAdEvent event) {
+    switch (event) {
+      case MobileAdEvent.loaded:
+        _isInterstitialAdReady = true;
+        break;
+      case MobileAdEvent.failedToLoad:
+        _isInterstitialAdReady = false;
+        print('Failed to load an interstitial ad');
+        break;
+      case MobileAdEvent.closed:
+        Home();
+        break;
+      default:
+      // do nothing
+    }
+  }
 
   @override
   void initState() {
@@ -64,6 +95,28 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     LeftCurve = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
         parent: animationController,
         curve: Interval(0.5, 1.0, curve: Curves.easeInOut)));
+
+    _bannerAd = BannerAd(
+      adUnitId: AdManager.bannerAdUnitId,
+      size: AdSize.banner,
+    );
+
+    // TODO: Load a Banner Ad
+    _loadBannerAd();
+
+    _isInterstitialAdReady = false;
+
+    // TODO: Initialize _interstitialAd
+    _interstitialAd = InterstitialAd(
+      adUnitId: AdManager.interstitialAdUnitId,
+      listener: _onInterstitialAdEvent,
+    );
+  }
+
+  void _loadBannerAd() {
+    _bannerAd
+      ..load()
+      ..show(anchorType: AnchorType.bottom);
   }
 
   getCardCnt() async {
@@ -218,6 +271,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void dispose() {
     // TODO: implement dispose
     animationController.dispose();
+    _bannerAd?.dispose();
+    _interstitialAd?.dispose();
     super.dispose();
   }
 
@@ -240,7 +295,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           ),
           appBar: CommonAppBar(
             menuenabled: true,
-            notificationenabled: true,
+            // notificationenabled: true,
             ontap: () {
               _scaffoldKey.currentState.openDrawer();
             },
@@ -389,6 +444,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               muchDelayedAnimation.value * width, 0, 0),
                           child: Bouncing(
                             onPress: () {
+                              if (_isInterstitialAdReady) {
+                                _interstitialAd.show();
+                              }
                               gotoEditNote();
                               // Navigator.push(
                               //     context,
@@ -407,7 +465,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                           transform: Matrix4.translationValues(
                               muchDelayedAnimation.value * width, 0, 0),
                           child: Bouncing(
+                            // child:Text('close'.toUpperCase()),
                             onPress: () {
+                              if (_isInterstitialAdReady) {
+                                _interstitialAd.show();
+                              }
                               print('All cards pressed');
                               gotoCardList();
                             },
@@ -436,6 +498,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               muchDelayedAnimation.value * width, 0, 0),
                           child: Bouncing(
                             onPress: () {
+                              if (_isInterstitialAdReady) {
+                                _interstitialAd.show();
+                              }
                               gotoAboutPage();
                             },
                             child: DashboardCard(
@@ -468,10 +533,46 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30.0, 10, 30, 10),
+                child: Container(
+                  alignment: Alignment(1.0, 0),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10.0, right: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Transform(
+                          transform: Matrix4.translationValues(
+                              muchDelayedAnimation.value * width, 0, 0),
+                          child: Bouncing(
+                            onPress: () {
+                              gotoInstructionsPage();
+                            },
+                            child: DashboardCard(
+                              name: "Instructions",
+                              imgpath: "leave_apply.png",
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         );
       },
+    );
+  }
+
+  void gotoInstructionsPage() {
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => Instructions(),
+      ),
     );
   }
 }

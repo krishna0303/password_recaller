@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:async';
@@ -10,6 +11,8 @@ import 'package:flutter/widgets.dart';
 import 'package:school_management/services/database.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:school_management/data/models.dart';
+
+import '../ad_manager.dart';
 
 class EditNotePage extends StatefulWidget {
   Function() triggerRefetch;
@@ -34,6 +37,34 @@ class _EditNotePageState extends State<EditNotePage> {
   NotesModel currentNote;
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
+  BannerAd _bannerAd;
+  InterstitialAd _interstitialAd;
+
+  // TODO: Add _isInterstitialAdReady
+  bool _isInterstitialAdReady;
+
+  // TODO: Implement _loadInterstitialAd()
+  void _loadInterstitialAd() {
+    _interstitialAd.load();
+  }
+
+  // TODO: Implement _onInterstitialAdEvent()
+  void _onInterstitialAdEvent(MobileAdEvent event) {
+    switch (event) {
+      case MobileAdEvent.loaded:
+        _isInterstitialAdReady = true;
+        break;
+      case MobileAdEvent.failedToLoad:
+        _isInterstitialAdReady = false;
+        print('Failed to load an interstitial ad');
+        break;
+      case MobileAdEvent.closed:
+        handleBack();
+        break;
+      default:
+      // do nothing
+    }
+  }
 
   @override
   void initState() {
@@ -53,6 +84,37 @@ class _EditNotePageState extends State<EditNotePage> {
 
     titleController.text = currentNote.title;
     contentController.text = currentNote.content;
+
+    _bannerAd = BannerAd(
+      adUnitId: AdManager.bannerAdUnitId,
+      size: AdSize.banner,
+    );
+
+    // TODO: Load a Banner Ad
+    _loadBannerAd();
+
+    _isInterstitialAdReady = false;
+
+    // TODO: Initialize _interstitialAd
+    _interstitialAd = InterstitialAd(
+      adUnitId: AdManager.interstitialAdUnitId,
+      listener: _onInterstitialAdEvent,
+    );
+  }
+
+  void _loadBannerAd() {
+    _bannerAd
+      ..load()
+      ..show(anchorType: AnchorType.bottom);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+
+    _bannerAd?.dispose();
+    _interstitialAd?.dispose();
+    super.dispose();
   }
 
   @override
@@ -265,6 +327,9 @@ class _EditNotePageState extends State<EditNotePage> {
   }
 
   void handleBack() {
+    if (_isInterstitialAdReady) {
+      _interstitialAd.show();
+    }
     Navigator.pop(context);
   }
 }

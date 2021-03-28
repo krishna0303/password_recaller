@@ -126,6 +126,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
               );
             }),
+
         FlatButton.icon(
           icon: Icon(Icons.person),
           label: Text('logout'),

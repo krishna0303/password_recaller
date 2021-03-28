@@ -2,7 +2,7 @@
     package="com.example.school_management">
     
    <application
-        android:label="school_management"
+        android:label="Password Recaller"
         android:icon="@mipmap/ic_launcher">
        
         <activity
@@ -40,5 +40,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data
+        android:name="com.google.android.gms.ads.APPLICATION_ID"
+        android:value="ca-app-pub-8485232027472811~5821644411"/>
     </application>
 </manifest>

@@ -1,4 +1,7 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
+
+import '../ad_manager.dart';
 
 class AboutUs extends StatefulWidget {
   @override
@@ -6,6 +9,71 @@ class AboutUs extends StatefulWidget {
 }
 
 class _AboutUsState extends State<AboutUs> {
+  BannerAd _bannerAd;
+  InterstitialAd _interstitialAd;
+
+  // TODO: Add _isInterstitialAdReady
+  bool _isInterstitialAdReady;
+
+  // TODO: Implement _loadInterstitialAd()
+  void _loadInterstitialAd() {
+    _interstitialAd.load();
+  }
+
+  // TODO: Implement _onInterstitialAdEvent()
+  void _onInterstitialAdEvent(MobileAdEvent event) {
+    switch (event) {
+      case MobileAdEvent.loaded:
+        _isInterstitialAdReady = true;
+        break;
+      case MobileAdEvent.failedToLoad:
+        _isInterstitialAdReady = false;
+        print('Failed to load an interstitial ad');
+        break;
+      case MobileAdEvent.closed:
+        handleBack();
+        break;
+      default:
+      // do nothing
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _bannerAd = BannerAd(
+      adUnitId: AdManager.bannerAdUnitId,
+      size: AdSize.banner,
+    );
+
+    // TODO: Load a Banner Ad
+    _loadBannerAd();
+
+    _isInterstitialAdReady = false;
+
+    // TODO: Initialize _interstitialAd
+    _interstitialAd = InterstitialAd(
+      adUnitId: AdManager.interstitialAdUnitId,
+      listener: _onInterstitialAdEvent,
+    );
+  }
+
+  void _loadBannerAd() {
+    _bannerAd
+      ..load()
+      ..show(anchorType: AnchorType.bottom);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+
+    _bannerAd?.dispose();
+    _interstitialAd?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,11 +99,12 @@ class _AboutUsState extends State<AboutUs> {
   }
 
   void handleBack() {
+    if (_isInterstitialAdReady) {
+      _interstitialAd.show();
+    }
     Navigator.pop(context);
   }
 }
-
-
 
 /*
 The main motive of our is that During the covid time We have to manage all our 

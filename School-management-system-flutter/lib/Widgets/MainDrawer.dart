@@ -15,6 +15,8 @@ import 'package:school_management/services/auth.dart';
 import 'package:share/share.dart';
 
 class MainDrawer extends StatefulWidget {
+  String email;
+  MainDrawer({Key key, this.email});
   @override
   _MainDrawerState createState() => _MainDrawerState();
 }
@@ -91,8 +93,8 @@ class _MainDrawerState extends State<MainDrawer> {
             Navigator.push(
               context,
               CupertinoPageRoute(
-                builder: (context) =>
-                    AllCards(title: 'Home', changeTheme: setTheme),
+                builder: (context) => AllCards(
+                    title: 'Home', email: widget.email, changeTheme: setTheme),
               ),
             );
           },

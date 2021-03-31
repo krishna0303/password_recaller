@@ -91,7 +91,7 @@ class _AboutUsState extends State<AboutUs> {
           padding: const EdgeInsets.all(12.0),
           child: Text(
             "The main motive of our is that During the covid time We have to manage all our activities online whether it is studying or work related. For that we end up creating accounts on various online platforms. And we do need to track the authentication details of all such platforms, Which might be a difficult activity for some fellows including us. So inorder to ease this difficulty we have made this app, in which you can track all info SECURELY in the form cards.Developers: Surendra and Krishna",
-            style: TextStyle(fontSize: 25),
+            style: TextStyle(fontSize: 18),
           ),
         ),
       ),

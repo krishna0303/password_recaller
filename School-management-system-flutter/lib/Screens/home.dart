@@ -291,7 +291,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           key: _scaffoldKey,
           drawer: Drawer(
             elevation: 0,
-            child: MainDrawer(),
+            child: MainDrawer(
+              email: widget.email,
+            ),
           ),
           appBar: CommonAppBar(
             menuenabled: true,

@@ -25,6 +25,17 @@ class _InstructionsState extends State<Instructions> {
             scrollDirection: Axis.vertical,
             child: Text(
               '''
+
+Important points which you have to take care:
+1)Only one email id can be used for one device it means you can only register in this app by 
+single email id. multiple accounts on  one device does not support.
+2)Before deleting this app you have to first take backup of your credentials which you have stored in this app then only you can 
+delete this app otherwise your credentials will remove.
+
+We will solve these two problems in our next versions and there are also lots of functionality come in the next versions.
+
+
+
 After Opening the app
 1) If new user click on request for ID button
 2) that will take you to the registration page register yourself by entering your details
@@ -38,9 +49,12 @@ After Opening the app
     c) About us - This page will give some info about the developer
     d) Share - This page will enable you to share this app
     e) Instructions - This page will give the same instructions which are being given here
+
+
     Developers: Surendra and Krishna
+
               ''',
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 18),
             ),
           ),
         ),

@@ -31,6 +31,8 @@ Important points which you have to take care:
 single email id. multiple accounts on  one device does not support.
 2)Before deleting this app you have to first take backup of your credentials which you have stored in this app then only you can 
 delete this app otherwise your credentials will remove.
+3)After using this app when you left this app make sure you have logout from your account otherwise it will 
+not automatic logout so please logout whenever you are going to left this app without forget.
 
 We will solve these two problems in our next versions and there are also lots of functionality come in the next versions.
 

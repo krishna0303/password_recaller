@@ -366,8 +366,10 @@ class _AllCardsState extends State<AllCards> {
     Navigator.push(
         context,
         CupertinoPageRoute(
-            builder: (context) =>
-                EditNotePage(triggerRefetch: refetchNotesFromDB)));
+            builder: (context) => EditNotePage(
+                  triggerRefetch: refetchNotesFromDB,
+                  email: widget.email,
+                )));
   }
 
   void refetchNotesFromDB() async {

@@ -27,14 +27,17 @@ class _InstructionsState extends State<Instructions> {
               '''
 
 Important points which you have to take care:
-1)Only one email id can be used for one device it means you can only register in this app by 
-single email id. multiple accounts on  one device does not support.
-2)Before deleting this app you have to first take backup of your credentials which you have stored in this app then only you can 
+1)Before deleting this app you have to first take backup of your credentials which you have stored in this app then only you can 
 delete this app otherwise your credentials will remove.
-3)After using this app when you left this app make sure you have logout from your account otherwise it will 
+2)After using this app when you left this app make sure you have logout from your account otherwise it will 
 not automatic logout so please logout whenever you are going to left this app without forget.
+3)We will solve these two problems in our next versions and there are also lots of functionality come in the next versions.
 
-We will solve these two problems in our next versions and there are also lots of functionality come in the next versions.
+Security of this app:
+1)This app not stored your entered data as note in server or anywhere these data's will store in your local device.
+Your data has protected.
+2)we will also add more security in this app in our next higher version of this app.
+
 
 
 

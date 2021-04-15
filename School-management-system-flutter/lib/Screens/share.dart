@@ -7,8 +7,9 @@ class MyShare extends StatefulWidget {
 }
 
 class _MyShareState extends State<MyShare> {
-  String text = 'http://digitalreviewadda.com/';
-  String subject = 'follow us';
+  String text =
+      'https://play.google.com/store/apps/details?id=com.alltechstack.password_recaller';
+  String subject = 'Share';
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

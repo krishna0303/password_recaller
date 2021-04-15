@@ -22,8 +22,9 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
-  String text = 'https://digitalreviewadda.com';
-  String subject = 'follow me';
+  String text =
+      'https://play.google.com/store/apps/details?id=com.alltechstack.password_recaller';
+  String subject = 'Share';
   ThemeData theme = appThemeLight;
   bool isFlagOn = false;
   bool headerShouldHide = false;

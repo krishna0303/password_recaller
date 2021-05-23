@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "548989264220",
-    "project_id": "password-e1605",
-    "storage_bucket": "password-e1605.appspot.com"
+    "project_number": "409273089294",
+    "project_id": "password-tracker-394dc",
+    "storage_bucket": "password-tracker-394dc.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:548989264220:android:1208fda47637f71995a199",
+        "mobilesdk_app_id": "1:409273089294:android:a063d468a5a06eed146b5f",
         "android_client_info": {
-          "package_name": "com.example.school_management"
+          "package_name": "com.alltechstack.password_recaller"
         }
       },
       "oauth_client": [
         {
-          "client_id": "548989264220-t08mu79p3u89ljar8ngv1qv1ifv9a20r.apps.googleusercontent.com",
+          "client_id": "409273089294-kfo1lt4i6d479rsust72d27g29tu0fd7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAJ_ZXznLWFlCQJUUR-liVjtOU7ZMD6M-E"
+          "current_key": "AIzaSyDxNKY0V9Behb5sR-ljSveQ6pzhxBHICLQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "548989264220-t08mu79p3u89ljar8ngv1qv1ifv9a20r.apps.googleusercontent.com",
+              "client_id": "409273089294-kfo1lt4i6d479rsust72d27g29tu0fd7.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,4 +1,4 @@
-package com.example.school_management
+package com.alltechstack.password_recaller
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -15,13 +15,16 @@ import 'package:school_management/services/auth.dart';
 import 'package:share/share.dart';
 
 class MainDrawer extends StatefulWidget {
+  String email;
+  MainDrawer({Key key, this.email});
   @override
   _MainDrawerState createState() => _MainDrawerState();
 }
 
 class _MainDrawerState extends State<MainDrawer> {
-  String text = 'https://digitalreviewadda.com';
-  String subject = 'follow me';
+  String text =
+      'https://play.google.com/store/apps/details?id=com.alltechstack.password_recaller';
+  String subject = 'Share';
   ThemeData theme = appThemeLight;
   bool isFlagOn = false;
   bool headerShouldHide = false;
@@ -91,8 +94,8 @@ class _MainDrawerState extends State<MainDrawer> {
             Navigator.push(
               context,
               CupertinoPageRoute(
-                builder: (context) =>
-                    AllCards(title: 'Home', changeTheme: setTheme),
+                builder: (context) => AllCards(
+                    title: 'Home', email: widget.email, changeTheme: setTheme),
               ),
             );
           },
@@ -126,6 +129,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
               );
             }),
+
         FlatButton.icon(
           icon: Icon(Icons.person),
           label: Text('logout'),

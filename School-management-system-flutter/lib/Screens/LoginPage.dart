@@ -294,6 +294,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 print("krishna:$userinfo");
                                 return _userfromfirebase(userinfo);
                               } catch (e) {
+                                print(e);
                                 if (e.code == 'user-not-found') {
                                   setState(() {
                                     error = "user not found";

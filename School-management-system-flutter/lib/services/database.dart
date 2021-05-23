@@ -36,6 +36,7 @@ class NotesDatabaseService {
   Future<List<NotesModel>> getNotesFromDB(String email) async {
     final db = await database;
     List<NotesModel> notesList = [];
+    print("Krishna:$email");
     List<Map> maps = await db.query('Notes',
         columns: [
           '_id',

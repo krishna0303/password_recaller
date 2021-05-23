@@ -4,6 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:school_management/Screens/LoginPage.dart';
+import 'package:firebase_admob/firebase_admob.dart';
+
+import '../ad_manager.dart';
 
 class SpleashScreen extends StatefulWidget {
   @override
@@ -11,6 +14,12 @@ class SpleashScreen extends StatefulWidget {
 }
 
 class _SpleashScreenState extends State<SpleashScreen> {
+  Future<void> _initAdMob() {
+    // TODO: Initialize AdMob SDK
+    return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
+  }
+
+  final String imgpath = "logo.png";
   @override
   void initState() {
     Firebase.initializeApp();
@@ -25,14 +34,12 @@ class _SpleashScreenState extends State<SpleashScreen> {
         width: double.infinity,
         child: Center(
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.27,
-            width: MediaQuery.of(context).size.width * 0.35,
-            child: FlareActor(
-              "assets/school spleash.flr",
-              animation: "start",
-              fit: BoxFit.fill,
-            ),
-          ),
+              height: MediaQuery.of(context).size.height * 0.27,
+              width: MediaQuery.of(context).size.width * 0.35,
+              child: Image.asset(
+                "assets/${imgpath}",
+                width: 60,
+              )),
         ),
       ),
     );

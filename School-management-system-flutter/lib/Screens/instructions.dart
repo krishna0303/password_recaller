@@ -17,30 +17,12 @@ class _InstructionsState extends State<Instructions> {
             onPressed: handleBack,
           ),
           backgroundColor: Colors.blueGrey[900],
-          title: Center(child: Text('Instructions')),
+          title: Center(child: Text('About Us')),
         ),
         body: Padding(
           padding: const EdgeInsets.all(12.0),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Text(
-              '''
-
-Important points which you have to take care:
-1)Before deleting this app you have to first take backup of your credentials which you have stored in this app then only you can 
-delete this app otherwise your credentials will remove.
-2)After using this app when you left this app make sure you have logout from your account otherwise it will 
-not automatic logout so please logout whenever you are going to left this app without forget.
-3)We will solve these two problems in our next versions and there are also lots of functionality come in the next versions.
-
-Security of this app:
-1)This app not stored your entered data as note in server or anywhere these data's will store in your local device.
-Your data has protected.
-2)we will also add more security in this app in our next higher version of this app.
-
-
-
-
+          child: Text(
+            '''
 After Opening the app
 1) If new user click on request for ID button
 2) that will take you to the registration page register yourself by entering your details
@@ -54,13 +36,9 @@ After Opening the app
     c) About us - This page will give some info about the developer
     d) Share - This page will enable you to share this app
     e) Instructions - This page will give the same instructions which are being given here
-
-
     Developers: Surendra and Krishna
-
-              ''',
-              style: TextStyle(fontSize: 18),
-            ),
+            ''',
+            style: TextStyle(fontSize: 25),
           ),
         ),
       ),
@@ -71,6 +49,9 @@ After Opening the app
     Navigator.pop(context);
   }
 }
+
+
+
 
 /*
 After Opening the app

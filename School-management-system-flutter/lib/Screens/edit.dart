@@ -230,7 +230,7 @@ class _EditNotePageState extends State<EditNotePage> {
                             'SAVE',
                             style: TextStyle(letterSpacing: 1),
                           ),
-                          onPressed: handleSave,
+                          onPressed: firebaseSave,
                         ),
                       )
                     ],
@@ -263,6 +263,14 @@ class _EditNotePageState extends State<EditNotePage> {
     widget.triggerRefetch();
     titleFocus.unfocus();
     contentFocus.unfocus();
+  }
+
+  void firebaseSave() {
+    setState(() {
+      currentNote.title = titleController.text;
+      currentNote.content = contentController.text;
+      print('Hey there ${currentNote.content}');
+    });
   }
 
   void markTitleAsDirty(String title) {
